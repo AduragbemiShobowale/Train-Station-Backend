@@ -7,11 +7,12 @@ const ClassSchema = new mongoose.Schema({
   priceChild: { type: String, required: true },
   totalSeats: { type: Number, required: true },
   reservedSeats: { type: Number, default: 0 },
+  reservedSeatNumbers: { type: [Number], default: [] },
 });
 
 // Virtual for available seats
 ClassSchema.virtual("availableSeats").get(function () {
-  return this.totalSeats - this.reservedSeats;
+  return this.totalSeats - (this.reservedSeatNumbers?.length || 0);
 });
 
 // Ensure virtuals are included when converting to JSON or Object

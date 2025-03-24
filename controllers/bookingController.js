@@ -136,8 +136,30 @@ exports.createBooking = async (req, res) => {
     try {
       await newBooking.save({ session });
 
-      // Reserve the seats by updating reservedSeats
-      trainClass.reservedSeats += seats.length;
+      // Find the index of the class in the train's classes array
+      const classIndex = train.classes.findIndex((c) => c.type === classType);
+      if (classIndex === -1) {
+        await session.abortTransaction();
+        session.endSession();
+        return res.status(404).json({ message: "Class not found" });
+      }
+
+      // Log the seats being added
+      console.log(`Adding seats ${seats} to ${classType}`);
+
+      // Update both reservedSeats count and reservedSeatNumbers array
+      train.classes[classIndex].reservedSeats += seats.length;
+      train.classes[classIndex].reservedSeatNumbers = [
+        ...train.classes[classIndex].reservedSeatNumbers,
+        ...seats,
+      ];
+
+      // Log the updated seats
+      console.log(
+        `Updated reserved seats:`,
+        train.classes[classIndex].reservedSeatNumbers
+      );
+
       await train.save({ session });
 
       await session.commitTransaction();
