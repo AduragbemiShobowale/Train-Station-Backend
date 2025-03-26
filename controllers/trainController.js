@@ -1,15 +1,15 @@
 const Train = require("../models/train");
 
 // Helper functions for date manipulation
-const startOfDay = (dateString) => {
-  const date = new Date(dateString);
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-};
+// const startOfDay = (dateString) => {
+//   const date = new Date(dateString);
+//   return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+// };
 
-const endOfDay = (dateString) => {
-  const date = new Date(dateString);
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
-};
+// const endOfDay = (dateString) => {
+//   const date = new Date(dateString);
+//   return new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
+// };
 
 /**
  * @desc Get all trains
@@ -124,10 +124,10 @@ exports.searchTrains = async (req, res) => {
     end.setHours(23, 59, 59, 999);
 
     // Add logging to check the values
-    console.log("Search parameters:", { fromStation, toStation, date });
-    console.log("Converted searchDate:", searchDate);
-    console.log("Query start time:", start);
-    console.log("Query end time:", end);
+    // console.log("Search parameters:", { fromStation, toStation, date });
+    // console.log("Converted searchDate:", searchDate);
+    // console.log("Query start time:", start);
+    // console.log("Query end time:", end);
 
     // Find trains that match the criteria
     const trains = await Train.find({

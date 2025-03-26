@@ -9,14 +9,13 @@ const {
   updatePassword,
   getAllUsers,
   logoutUser,
-  testEmail,
 } = require("../controllers/authController");
 
 const { protect } = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 
-router.post("/test-email", testEmail);
+
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/forgot-password", forgotPassword);

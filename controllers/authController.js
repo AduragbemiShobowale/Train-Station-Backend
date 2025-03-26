@@ -249,20 +249,4 @@ const handleErrorResponse = (error, res) => {
     .json({ success: false, message: "Server Error", error: error.message });
 };
 
-exports.testEmail = async (req, res) => {
-  try {
-    // Implement your test email logic here
-    // This could be a simple email send to a predefined address
-    await emailService.sendTestEmail();
-    res.status(200).json({
-      success: true,
-      message: "Test email sent successfully",
-    });
-  } catch (error) {
-    console.error("Test email error:", error);
-    res.status(500).json({
-      success: false,
-      message: `Error sending test email: ${error.message}`,
-    });
-  }
-};
+
